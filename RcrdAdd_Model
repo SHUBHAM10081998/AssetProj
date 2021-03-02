@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace ANGULARASSETIT.Models
+{
+    public class submitRcrd
+    {
+        public string dropPrnm { get; set; }
+        public int textTAssets { get; set; }
+        public int textwfhAssets { get; set; }
+        public int textsystm { get; set; }
+        public int textSSytm { get; set; }
+        public int textOval { get; set; }
+        public int textWFo { get; set; }
+        public int textincrs { get; set; }
+        public int textFsystm { get; set; }
+        public int textTotl { get; set; }
+        public string textItrmrks { get; set; }
+        public int textRcnt { get; set; }
+    }
+}
