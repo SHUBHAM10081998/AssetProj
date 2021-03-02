@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using ANGULARASSETIT.Models;
+
+namespace ANGULARASSETIT.database_Access_Layer
+{
+    public class db
+    {
+         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ConnectionString);
+
+
+    public int userlogin(user us)
+        {
+            SqlCommand cmd = new SqlCommand("Sp_User_login",con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Email", us.Email);
+            cmd.Parameters.AddWithValue("@Password", us.Password);
+            SqlParameter oblogin = new SqlParameter();
+            oblogin.ParameterName = "@IsValid";
+            oblogin.Direction = System.Data.ParameterDirection.Output;
+            oblogin.SqlDbType = System.Data.SqlDbType.Bit;
+            cmd.Parameters.Add(oblogin);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            int res = Convert.ToInt32(oblogin.Value);
+            con.Close();
+            return res;
+        }
+    public void Add_Record(submitRcrd sbmt)
+        {
+            SqlCommand cmd = new SqlCommand("ASSTTRCKRINRT", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@dropPrnm", sbmt.dropPrnm);
+            cmd.Parameters.AddWithValue("@textTAssets", sbmt.textTAssets);
+            cmd.Parameters.AddWithValue("@textwfhAssets", sbmt.textwfhAssets);
+            cmd.Parameters.AddWithValue("@textsystm", sbmt.textsystm);
+            cmd.Parameters.AddWithValue("@textSSytm", sbmt.textSSytm);
+            cmd.Parameters.AddWithValue("@textOval", sbmt.textOval);
+            cmd.Parameters.AddWithValue("@textWFo", sbmt.textWFo);
+            cmd.Parameters.AddWithValue("@textincrs", sbmt.textincrs);
+            cmd.Parameters.AddWithValue("@textFsystm", sbmt.textFsystm);
+            cmd.Parameters.AddWithValue("@textTotl", sbmt.textTotl);
+            cmd.Parameters.AddWithValue("@textItrmrks", sbmt.textItrmrks);
+            cmd.Parameters.AddWithValue("@textRcnt", sbmt.textRcnt);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+    }
+}
